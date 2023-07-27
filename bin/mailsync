@@ -50,6 +50,15 @@ case "$(uname)" in
 	;;
 esac
 
+# export first display before running mbsync to display a GUI pinentry (for gpg-agent) in your graphic session
+# this might be both a SECURITY HAZARD and annoyance:
+#   as if you run mailsync often, you have to enter your gpg key passphrase often and
+#   your passphrase will be in memory of gpg-agent most of the time
+# hence, if you do NOT export display, passphrase to your key will be accessed only
+#   if you have unlocked it by other means. For example, if you are using pass also for
+#   storing other passwords, you unlock it and within the cache time window, mailsync can run
+#export DISPLAY="$(printf %s "$x" | sed 1q | tr -d '[:space:]')" 
+
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
 	case "$1" in
